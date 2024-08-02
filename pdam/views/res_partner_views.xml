@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="PDAM Information">
+                    <group>
+                        <field name="meter_number"/>
+                        <field name="meter_install_date"/>
+                        <field name="last_reading"/>
+                        <field name="water_usage" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_pd_customers" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

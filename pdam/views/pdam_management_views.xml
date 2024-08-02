@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pdam_management_tree" model="ir.ui.view">
+        <field name="name">pdam.management.tree</field>
+        <field name="model">pdam.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="responsible_id"/>
+                <field name="billing_period"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_pdam_management_form" model="ir.ui.view">
+        <field name="name">pdam.management.form</field>
+        <field name="model">pdam.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Start" type="object" name="action_start" class="oe_highlight"/>
+                    <button string="Complete" type="object" name="action_complete" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="action_cancel"/>
+                     <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="responsible_id"/>
+                        <field name="billing_period"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pdam_management" model="ir.actions.act_window">
+        <field name="name">Management</field>
+        <field name="res_model">pdam.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

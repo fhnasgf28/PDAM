@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_pd_management_root"
+                  name="PDAM Management"
+                  sequence="5"/>
+
+        <menuitem id="menu_pd_customers"
+                  name="Customers"
+                  parent="menu_pd_management_root"
+                  action="action_pd_customers"
+                  sequence="10"/>
+
+        <menuitem id="menu_pdam_management"
+                  name="Management"
+                  parent="menu_pd_management_root"
+                  action="action_pdam_management"
+                  sequence="5"/>
+
+    </data>
+</odoo>
