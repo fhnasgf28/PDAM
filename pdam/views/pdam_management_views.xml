@@ -56,4 +56,27 @@
         <field name="res_model">pdam.management</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <!-- Actions -->
+    <record id="action_pdam_management_paid" model="ir.actions.act_window">
+        <field name="name">Paid Management</field>
+        <field name="res_model">pdam.management</field>
+        <field name="domain">[('is_paid', '=', True)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_pdam_management_unpaid" model="ir.actions.act_window">
+        <field name="name">Unpaid Management</field>
+        <field name="res_model">pdam.management</field>
+        <field name="domain">[('is_paid', '=', False)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_pdam_paid_moves" model="ir.actions.act_window">
+        <field name="name">Paid Moves</field>
+        <field name="res_model">account.move</field>
+        <field name="domain">[('is_paid', '=', True)]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

@@ -8,6 +8,7 @@ class PdamManagement(models.Model):
 
     name = fields.Char(string='Customer Reference', copy=False, readonly=True, index=True)
     is_pdam = fields.Boolean(string="RFQ Created", default=True)
+    is_paid = fields.Boolean(string="Is Paid", default=False)
     description = fields.Text(string='Description')
     customer_number = fields.Char(string='Customer Number')
     date_field = fields.Date(string='Bulan Pembayaran')

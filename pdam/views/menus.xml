@@ -18,5 +18,22 @@
                   action="action_pdam_management"
                   sequence="5"/>
 
+        <menuitem id="menu_pdam_management_paid"
+                  name="Paid Management"
+                  parent="menu_pd_management_root"
+                  action="action_pdam_management_paid"/>
+
+        <menuitem id="menu_pdam_management_unpaid"
+              name="Unpaid Management"
+              parent="menu_pd_management_root"
+              action="action_pdam_management_unpaid"/>
+
+
+        <menuitem id="menu_pdam_paid_moves"
+                  name="Paid Moves"
+                  parent="menu_pd_management_root"
+                  action="action_pdam_paid_moves"/>
+
+
     </data>
 </odoo>
