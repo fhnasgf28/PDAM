@@ -8,8 +8,6 @@
                 <field name="name"/>
                 <field name="responsible_id"/>
                 <field name="billing_period"/>
-                <field name="start_date"/>
-                <field name="end_date"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -21,7 +19,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button string="Start" type="object" name="action_start" class="oe_highlight"/>
+                    <button string="Bayar" type="object" name="action_start" class="oe_highlight"/>
                     <button string="Complete" type="object" name="action_complete" class="oe_highlight"/>
                     <button string="Cancel" type="object" name="action_cancel"/>
                      <field name="state" widget="statusbar"/>
@@ -33,13 +31,16 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="description"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="responsible_id"/>
-                        <field name="date_field"/>
-                        <field name="billing_period"/>
-                        <field name="is_pdam" invisible="1"/>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="responsible_id"/>
+                            <field name="date_field"/>
+                        </group>
+                        <group><field name="billing_period"/>
+                            <field name="description"/>
+                            <field name="is_pdam" invisible="1"/>
+                            <field name="is_paid"/>
+                        </group>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

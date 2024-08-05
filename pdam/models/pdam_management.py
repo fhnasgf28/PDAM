@@ -7,14 +7,13 @@ class PdamManagement(models.Model):
     _description = 'PDAM Management'
 
     name = fields.Char(string='Customer Reference', copy=False, readonly=True, index=True)
+    customer_id = fields.Many2one('res.partner', string='Customer', required=True)
     is_pdam = fields.Boolean(string="RFQ Created", default=True)
     is_paid = fields.Boolean(string="Is Paid", default=False)
     description = fields.Text(string='Description')
     customer_number = fields.Char(string='Customer Number')
-    date_field = fields.Date(string='Bulan Pembayaran')
+    date_field = fields.Date(string='Tanggal Pembayaran')
     billing_period = fields.Char(string='Periode Tagihan', required=True, compute='_compute_month_name')
-    start_date = fields.Date(string='Start Date', default=fields.Date.today)
-    end_date = fields.Date(string='End Date')
     responsible_id = fields.Many2one('res.users', string='Responsible', required=True)
     # customer_ids = fields.One2many('res.partner', 'pdam_management_id', string='Customers')
     state = fields.Selection([
@@ -49,3 +48,22 @@ class PdamManagement(models.Model):
 
     def action_cancel(self):
         self.state = 'cancelled'
+
+
+class PdamManagementLine(models.Model):
+    _name = 'pdam.management.line'
+    _description = 'Informasi Meteran PDAM'
+
+    meter_id = fields.Char(string='Meter ID', required=True, help='ID atau nomor identifikasi meteran')
+    location = fields.Char(string='Lokasi', help='Lokasi pemasangan meteran')
+    capacity = fields.Float(string='Kapasitas', help='Kapasitas maksimum meteran dalam liter')
+    status = fields.Selection([
+        ('active', 'Aktif'),
+        ('inactive', 'Tidak Aktif'),
+        ('maintenance', 'Pemeliharaan'),
+    ], string='Status', default='active', help='Status operasional meteran')
+    installation_date = fields.Date(string='Tanggal Pemasangan', help='Tanggal pemasangan meteran')
+    last_maintenance_date = fields.Date(string='Tanggal Pemeliharaan Terakhir',
+                                        help='Tanggal terakhir meteran dipelihara')
+    partner_id = fields.Many2one('res.partner', string='Pelanggan', help='Pelanggan yang menggunakan meteran ini')
+    res_partner_ids = fields.One2many('res.partner', 'pdam_management_id', string="Informasi Pelanggan")
