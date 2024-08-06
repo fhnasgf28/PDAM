@@ -42,6 +42,18 @@
                             <field name="is_paid"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Customers">
+                            <field name="customer_ids">
+                                <tree editable="bottom">
+                                    <field name="no_card_ID"/>
+                                    <field name="meter_install_date"/>
+                                    <field name="last_reading"/>
+                                    <field name="water_usage"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>

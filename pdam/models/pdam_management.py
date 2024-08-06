@@ -15,7 +15,7 @@ class PdamManagement(models.Model):
     date_field = fields.Date(string='Tanggal Pembayaran')
     billing_period = fields.Char(string='Periode Tagihan', required=True, compute='_compute_month_name')
     responsible_id = fields.Many2one('res.users', string='Responsible', required=True)
-    # customer_ids = fields.One2many('res.partner', 'pdam_management_id', string='Customers')
+    customer_ids = fields.One2many('res.partner', 'pdam_management_id', string='Customers')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('ongoing', 'Ongoing'),
@@ -48,6 +48,29 @@ class PdamManagement(models.Model):
 
     def action_cancel(self):
         self.state = 'cancelled'
+
+    def action_create_invoice(self):
+        invoice_obj = self.env['account.move']
+        invoice_vals = {
+            'partner_id': self.partner_id.id,
+            'move_type': 'out_invoice',
+            #masih perlu perbaikan, kepa udah mumet cuy
+            'invoice_line_ids': [(0, 0, {
+                'product_id': self.product_id.id,
+                'quantity': self.water_usage,
+                'price_unit': self.price_per_unit,
+            })],
+        }
+        invoice = invoice_obj.create(invoice_vals)
+        self.is_paid = True
+        return {
+            'name': 'Customer Invoice',
+            'view_mode': 'form',
+            'res_model': 'account.move',
+            'res_id': invoice.id,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+        }
 
 
 class PdamManagementLine(models.Model):

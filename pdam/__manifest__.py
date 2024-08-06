@@ -29,6 +29,7 @@
         'views/res_partner_views.xml',
         'views/pdam_management_views.xml',
         'views/menus.xml',
+        'reports/menus.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
