@@ -7,7 +7,9 @@ class PdamManagement(models.Model):
     _description = 'PDAM Management'
 
     name = fields.Char(string='Customer Reference', copy=False, readonly=True, index=True)
+    product_id = fields.Many2one('product.template', string='PDAM', required=True)
     customer_id = fields.Many2one('res.partner', string='Customer', required=True)
+    price_per_cubic = fields.Float('Harga per kubik', readonly=True, default=3000)
     is_pdam = fields.Boolean(string="RFQ Created", default=True)
     is_paid = fields.Boolean(string="Is Paid", default=False)
     description = fields.Text(string='Description')
@@ -18,9 +20,10 @@ class PdamManagement(models.Model):
     customer_ids = fields.One2many('res.partner', 'pdam_management_id', string='Customers')
     total_payment = fields.Float(string='Total Pembayaran', compute='_compute_total_payment')
     cubic_quantity = fields.Float(string='Jumlah Kubik')
+    cubics_last_month = fields.Float(string='Jumlah Kubik Bulan Lalu')
     state = fields.Selection([
         ('draft', 'Draft'),
-        ('ongoing', 'Ongoing'),
+        ('bayar', 'Di Bayar'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled')
     ], string='Status', default='draft')
@@ -58,11 +61,12 @@ class PdamManagement(models.Model):
         invoice_vals = {
             'partner_id': self.customer_id.id,
             'move_type': 'out_invoice',
-            #masih perlu perbaikan, kepa udah mumet cuy
+            'name': self.name,
+            'is_paid': True,
             'invoice_line_ids': [(0, 0, {
                 'product_id': self.product_id.id,
-                'quantity': self.water_usage,
-                'price_unit': self.price_per_unit,
+                'quantity': self.cubic_quantity,
+                'price_unit': self.price_per_cubic
             })],
         }
         invoice = invoice_obj.create(invoice_vals)

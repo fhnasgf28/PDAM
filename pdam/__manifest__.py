@@ -29,7 +29,9 @@
         'views/res_partner_views.xml',
         'views/pdam_management_views.xml',
         'views/menus.xml',
-        # 'reports/menus.xml',
+        'views/account_move_views.xml',
+        # 'reports/report_action.xml',
+        # 'reports/pdam_report_templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

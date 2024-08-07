@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <!--new paper format-->
-        <record model="report.paperformat" id="rfq_paperformat">
+        <record model="report.paperformat" id="pdam_paperformat">
             <field name="name">RFQ Format</field>
             <field name="default" eval="True" />
             <field name="format">A4</field>
@@ -16,12 +16,19 @@
             <field name="header_spacing">90</field>
             <field name="dpi">90</field>
         </record>
-        <!--pdf report-->
-        <record id="sale.action_report_saleorder" model="ir.actions.report">
-            <field name="paperformat_id" ref="final_exam_hashmicro.rfq_paperformat"/>
+
+        <record id="action_pdam_management_report" model="ir.actions.report">
+            <field name="name">PDAM Management Report</field>
+            <field name="model">pdam.management</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pdam.pdam_management_report</field>
+            <field name="report_file">pdam.pdam_management_report</field>
+            <field name="binding_model_id" ref="pdam.model_pdam_management"/>
+            <field name="paperformat_id" ref="pdam.pdam_paperformat"/>
+            <field name="binding_type">report</field>
         </record>
 
-        <template id="report_saleorder_inherit" inherit_id="sale.report_saleorder_document">
+        <template id="pdam_management_report">
             <xpath expr="//t" position="replace">
                 <t t-call="web.basic_layout">
                     <div class="header">
