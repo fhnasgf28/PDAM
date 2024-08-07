@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'account'],
+    'depends': ['base', 'mail', 'account', 'stock'],
 
     # always loaded
     'data': [
@@ -29,7 +29,7 @@
         'views/res_partner_views.xml',
         'views/pdam_management_views.xml',
         'views/menus.xml',
-        'reports/menus.xml',
+        # 'reports/menus.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

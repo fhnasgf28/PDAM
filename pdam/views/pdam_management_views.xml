@@ -19,7 +19,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button string="Bayar" type="object" name="action_start" class="oe_highlight"/>
+                    <button string="Bayar" type="object" name="action_create_invoice" class="oe_highlight"/>
                     <button string="Complete" type="object" name="action_complete" class="oe_highlight"/>
                     <button string="Cancel" type="object" name="action_cancel"/>
                      <field name="state" widget="statusbar"/>
@@ -40,6 +40,8 @@
                             <field name="description"/>
                             <field name="is_pdam" invisible="1"/>
                             <field name="is_paid"/>
+                            <field name="total_payment"/>
+                            <field name="cubic_quantity"/>
                         </group>
                     </group>
                     <notebook>

@@ -16,6 +16,8 @@ class PdamManagement(models.Model):
     billing_period = fields.Char(string='Periode Tagihan', required=True, compute='_compute_month_name')
     responsible_id = fields.Many2one('res.users', string='Responsible', required=True)
     customer_ids = fields.One2many('res.partner', 'pdam_management_id', string='Customers')
+    total_payment = fields.Float(string='Total Pembayaran', compute='_compute_total_payment')
+    cubic_quantity = fields.Float(string='Jumlah Kubik')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('ongoing', 'Ongoing'),
@@ -40,8 +42,10 @@ class PdamManagement(models.Model):
             else:
                 record.billing_period = ''
 
-    def action_start(self):
-        self.state = 'ongoing'
+    @api.depends('cubic_quantity')
+    def _compute_total_payment(self):
+        for record in self:
+            record.total_payment = self.cubic_quantity * 3000
 
     def action_complete(self):
         self.state = 'completed'
@@ -52,7 +56,7 @@ class PdamManagement(models.Model):
     def action_create_invoice(self):
         invoice_obj = self.env['account.move']
         invoice_vals = {
-            'partner_id': self.partner_id.id,
+            'partner_id': self.customer_id.id,
             'move_type': 'out_invoice',
             #masih perlu perbaikan, kepa udah mumet cuy
             'invoice_line_ids': [(0, 0, {
