@@ -26,6 +26,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/ir_sequence.xml',
+        'data/ir_cron.xml',
         'views/res_partner_views.xml',
         'views/pdam_management_views.xml',
         'views/menus.xml',
