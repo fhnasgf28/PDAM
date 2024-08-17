@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import timedelta
 
 
@@ -18,7 +18,7 @@ class ResPartner(models.Model):
         ('inactive', 'Tidak Aktif'),
         ('maintenance', 'Pemeliharaan'),
     ], string='Status', default='active', help='Status operasional meteran')
-    last_payment_date = fields.Date(string='Last Payment Date',compute="_compute_last_payment_date", store=True)
+    last_payment_date = fields.Date(string='Last Payment Date', compute="_compute_last_payment_date", store=True)
 
     @api.depends('no_card_ID')
     def _compute_meter_number(self):
@@ -71,13 +71,11 @@ class ResPartner(models.Model):
             }
         else:
             return {
-                'type': 'ir.actions.act_window',
-                'name': 'Warning',
-                'res_model': 'ir.actions.act_window',
-                'view_mode': 'form',
-                'view_id': self.env.ref('base.view_warning').id,
-                'target': 'new',
-                'context': {
-                    'message': 'No mobile number found!'
-                },
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+            'title': _('Warning'),
+            'message': 'Masukan Mobile Phone',
+            'sticky': True,
             }
+     }
