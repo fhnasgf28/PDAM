@@ -4,11 +4,12 @@
         <field name="name">pdam.management.tree</field>
         <field name="model">pdam.management</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-info="state == 'draft'" decoration-success="state in ['completed', 'bayar']" decoration-danger="state == 'canceled'">
                 <field name="name"/>
                 <field name="responsible_id"/>
                 <field name="billing_period"/>
-                <field name="state"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'"
+                           decoration-success="state in ['completed', 'bayar']" decoration-danger="state == 'canceled'" readonly="1"/>
             </tree>
         </field>
     </record>
