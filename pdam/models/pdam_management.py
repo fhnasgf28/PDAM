@@ -15,7 +15,7 @@ class PdamManagement(models.Model):
     description = fields.Text(string='Description')
     customer_number = fields.Char(string='Customer Number')
     date_field = fields.Date(string='Tanggal Pembayaran')
-    billing_period = fields.Char(string='Periode Tagihan', required=True, compute='_compute_month_name')
+    billing_period = fields.Char(string='Periode Tagihan', required=True, compute='_compute_month_name', store=True)
     responsible_id = fields.Many2one('res.users', string='Responsible', required=True)
     customer_ids = fields.One2many('res.partner', 'pdam_management_id', string='Customers')
     total_payment = fields.Float(string='Total Pembayaran', compute='_compute_total_payment')

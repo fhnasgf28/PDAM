@@ -69,6 +69,21 @@
         </field>
     </record>
 
+<!--    search view-->
+    <record id="view_pdam_management_search" model="ir.ui.view">
+    <field name="name">pdam.management.search</field>
+    <field name="model">pdam.management</field>
+    <field name="arch" type="xml">
+           <search>
+            <field name="billing_period"/>
+            <group expand="1" string="Group By">
+                <filter string="Billing Period" name="group_by_billing_period" context="{'group_by': 'billing_period'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+
     <record id="action_pdam_management" model="ir.actions.act_window">
         <field name="name">Management</field>
         <field name="res_model">pdam.management</field>
@@ -80,6 +95,7 @@
         <field name="name">Paid Management</field>
         <field name="res_model">pdam.management</field>
         <field name="domain">[('is_paid', '=', True)]</field>
+        <field name="search_view_id" ref="view_pdam_management_search"/>
         <field name="view_mode">tree,form</field>
     </record>
 
