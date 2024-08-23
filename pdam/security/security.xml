@@ -1,0 +1,24 @@
+<odoo>
+    <data noupdate="1">
+
+        <!-- Admin Group -->
+        <record id="group_pdam_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="comment">Grup ini memiliki akses penuh termasuk menginstal modul.</field>
+        </record>
+
+        <!-- Pengelola Group -->
+        <record id="group_pdam_pengelola" model="res.groups">
+            <field name="name">Pengelola</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="comment">Grup ini tidak memiliki akses untuk menginstal modul.</field>
+        </record>
+
+        <!-- Restrict Module Installation for Pengelola -->
+        <record id="base.group_system" model="res.groups">
+            <field name="implied_ids" eval="[(3, ref('pdam.group_pdam_pengelola'))]"/>
+        </record>
+
+    </data>
+</odoo>
