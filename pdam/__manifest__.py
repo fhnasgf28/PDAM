@@ -34,7 +34,7 @@
         'views/account_move_views.xml',
         'wizard/import_data_pelanggan/import_customer_data_view.xml',
         # 'reports/report_action.xml',
-        # 'reports/pdam_report_templates.xml',
+        'reports/pdam_report_templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
