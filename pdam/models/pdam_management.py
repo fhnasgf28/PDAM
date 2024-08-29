@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-
+from dateutil.relativedelta import relativedelta
 
 class PdamManagement(models.Model):
     _name = 'pdam.management'
@@ -14,6 +14,7 @@ class PdamManagement(models.Model):
     is_paid = fields.Boolean(string="Is Paid", default=False)
     description = fields.Text(string='Description')
     customer_number = fields.Char(string='Customer Number')
+    previous_cubic_value = fields.Float(string="Jumlah Kubik Bulan Lalu", help="Nilai cubic yang digunakan untuk menyimpan konsumsi air.")
     date_field = fields.Date(string='Tanggal Pembayaran')
     billing_period = fields.Char(string='Periode Tagihan', compute='_compute_month_name', store=True)
     responsible_id = fields.Many2one('res.users', string='Responsible', required=True)
@@ -36,6 +37,20 @@ class PdamManagement(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code(sequence_code) or _('New')
         res = super(PdamManagement, self).create(vals)
         return res
+
+    @api.depends('billing_period')
+    def _onchange_billing_period(self):
+        if self.billing_period:
+            previous_month = fields.Date.from_string(self.billing_period) - relativedelta(month=1)
+            previous_record = self.search([
+                ('customer_id', '=', self.customer_id.id),
+                ('billing_period', '=', previous_month)
+            ], limit=1)
+
+            if previous_record:
+                self.previous_cubic_value = previous_record.cubic_quantity
+            else:
+                self.previous_cubic_value = 0.0
 
     @api.depends('date_field')
     def _compute_month_name(self):

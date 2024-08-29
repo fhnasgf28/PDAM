@@ -37,6 +37,7 @@
                             <field name="product_id"/>
                             <field name="responsible_id"/>
                             <field name="date_field"/>
+                            <field name="previous_cubic_value"/>
                         </group>
                         <group><field name="billing_period"/>
                             <field name="description"/>

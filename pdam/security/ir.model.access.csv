@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_pdam_management_user,pdam.management user,model_pdam_management,,1,1,1,1
 
 access_import_data_pelanggan_wizard,import_data_pelanggan_wizard,model_import_data_pelanggan_wizard,,1,1,1,1
+access_whatsapp_send_message_user,access.whatsapp.send.message.user,model_whatsapp_send_message,base.group_user,1,1,1,1

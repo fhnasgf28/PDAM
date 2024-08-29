@@ -33,6 +33,7 @@
         'views/menus.xml',
         'views/account_move_views.xml',
         'wizard/import_data_pelanggan/import_customer_data_view.xml',
+        'wizard/whatsapp_send_message.xml',
         # 'reports/report_action.xml',
         'reports/pdam_report_templates.xml',
     ],
