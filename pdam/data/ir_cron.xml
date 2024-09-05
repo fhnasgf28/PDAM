@@ -11,5 +11,16 @@
             <field name="doall" eval="False"/>
             <field name="active" eval="True"/>
         </record>
+
+        <record id="ir_cron_check_customers_unpaid_three_month" model="ir.cron">
+            <field name="name">Check Unpaid Customers (3 Month)</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">model.check_customers_unpaid_three_months()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
     </data>
 </odoo>

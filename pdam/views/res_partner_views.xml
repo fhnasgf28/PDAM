@@ -72,11 +72,29 @@
             </field>
         </record>
 
+    <record id="view_res_partner_unpaid_three_months_tree" model="ir.ui.view">
+        <field name="name">res.partner.unpaid.three.months.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Unpaid Customers (3 Months)">
+                <field name="last_payment_date"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="action_pd_customers" model="ir.actions.act_window">
         <field name="name">Customers</field>
         <field name="res_model">res.partner</field>
         <field name="domain">[]</field>
         <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record id="action_res_partner_unpaid_three_months" model="ir.actions.act_window">
+        <field name="name">Unpaid Customers (3 Months)</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_res_partner_unpaid_three_months_tree"/>
+        <field name="domain">[('last_payment_date', '&lt;=', (context_today() - relativedelta(months=3)).strftime('%Y-%m-%d'))]</field>
     </record>
 
 </odoo>

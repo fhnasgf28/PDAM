@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 class ResPartner(models.Model):
@@ -60,6 +60,15 @@ class ResPartner(models.Model):
                 'target': 'new',
             })
 
+    def check_customers_unpaid_three_months(self):
+        three_month_ago = datetime.today() - timedelta(days=90)
+        unpaid_customers= self.search([(
+            'last_payment_date', '<=', three_month_ago
+        )])
+        for customer in unpaid_customers:
+            customer.write({
+                'comment': 'Belum Membayar selama lebih dari 3 bulan atau lebih'
+            })
     def action_open_whatsapp(self):
         self.ensure_one()
         if self.mobile:

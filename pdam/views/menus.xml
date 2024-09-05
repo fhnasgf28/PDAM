@@ -32,6 +32,11 @@
               parent="menu_pdam_management_paid"
               action="action_pdam_management_unpaid"/>
 
+        <menuitem id="menu_res_partner_unpaid_three_months"
+              name="Unpaid Customers (3 Months)"
+              parent="menu_pdam_management_paid"
+              action="action_res_partner_unpaid_three_months"/>
+
         <menuitem id="menu_pdam_paid_moves"
                   name="Paid Moves"
                   parent="menu_pd_management_root"
